@@ -110,7 +110,7 @@ export default function Home() {
                     <div className="text-sm text-center">
                         You must be{' '}
                         <a
-                            href={window.location.origin}
+                            href="https://spotify-mega-wrapped.vercel.app"
                             className='underline'
                         >
                             logged in
