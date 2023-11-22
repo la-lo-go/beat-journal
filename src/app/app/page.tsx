@@ -77,7 +77,7 @@ export default function Home() {
     }
 
     return (
-        <main className="min-h-full p-14">
+        <main className="min-h-full m-6">
             {session ? (
                 <>
                     {session.user && (
