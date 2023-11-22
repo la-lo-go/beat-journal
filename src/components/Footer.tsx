@@ -8,7 +8,8 @@ import Link from 'next/link'
 
 export default function Footer() {
     return (
-        <footer className="flex flex-col items-center justify-center w-full h-24">
+        <footer className="w-full h-24">
+            <div className="flex flex-col items-center justify-center">
             <p className="text-sm mb-2 mx-6 text-center">
                 Thanks to{' '}
                 <Link
@@ -52,6 +53,8 @@ export default function Footer() {
                     />
                 </Link>
             </div>
+            </div>
+            
         </footer>
     )
 }
