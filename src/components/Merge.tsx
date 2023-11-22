@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { MergeProps } from '@/lib/spotify/types'
 import SpotifyWebApi from 'spotify-web-api-js'
 import { chunk } from 'lodash'
@@ -13,11 +13,53 @@ const Merge: React.FC<{
     session: MergeProps['session']
     onCancel: () => void
 }> = ({ playlists, selectedPlaylists, session, onCancel }) => {
-    const [playlistName, setPlaylistName] = useState('')
     const [isMerging, setIsMerging] = useState(false)
     const [isMerged, setIsMerged] = useState(false)
     const [playlistId, setPlaylistId] = useState('')
+    const [playListUrl, setPlaylistUrl] = useState('')
+    const [mergingText, setMergingText] = useState('Merging...')
     const [isPublic, setIsPublic] = useState(false)
+    const [playlistName, setPlaylistName] = useState(() => {
+        const selectedPlaylistNames = selectedPlaylists.map((playlist) => {
+            return playlists.find((p) => p.id === playlist)?.name ?? '';
+        })
+
+        const years = selectedPlaylistNames.map((name) => {
+            const match = name.match(/\d{4}/)
+            return match ? parseInt(match[0]) : 0
+        }).filter((year) => year !== 0)
+        
+        return `Mega Wrapped (${Math.min(...years)}-${Math.max(...years)})`
+    })
+
+    useEffect(() => {
+        let intervalId: string | number | NodeJS.Timer | undefined;
+    
+        if (isMerging) {
+            intervalId = setInterval(() => {
+                setMergingText((prevText) => {
+                    switch (prevText) {
+                        case 'Merging...':
+                            return 'Merging';
+                        case 'Merging':
+                            return 'Merging.';
+                        case 'Merging.':
+                            return 'Merging..';
+                        case 'Merging..':
+                            return 'Merging...';
+                        default:
+                            return 'Merging...';
+                    }
+                });
+            }, 250);
+        }
+    
+        return () => {
+            if (intervalId) {
+                clearInterval(intervalId);
+            }
+        };
+    }, [isMerging]);
 
     const handlePlaylistNameChange = (
         event: React.ChangeEvent<HTMLInputElement>
@@ -47,7 +89,9 @@ const Merge: React.FC<{
                 })
             ).then((arrays) => arrays.flat())
 
-            const trackIdChunks = chunk(trackIds, 100)
+            const uniqueTrackIds = [...new Set(trackIds)]
+
+            const trackIdChunks = chunk(uniqueTrackIds, 100)
 
             // spotify only allows 100 tracks to be added at a time
             for (const chunk of trackIdChunks) {
@@ -59,6 +103,7 @@ const Merge: React.FC<{
             }
 
             setPlaylistId(newPlaylist.id)
+            setPlaylistUrl(newPlaylist.external_urls.spotify)
             setPlaylistName('')
             setIsMerging(false)
             setIsMerged(true)
@@ -72,18 +117,18 @@ const Merge: React.FC<{
         <div className="fixed inset-0 overflow-auto bg-black/50 z-50 backdrop-blur-lg">
             <div className="flex min-h-screen flex-col items-center justify-center ">
                 <div className="flex flex-col items-center justify-center">
-                    <div className="flex flex-col items-center justify-center bg-background-100 rounded-md p-8">
+                    <div className="flex flex-col items-center justify-center gap-1 bg-[#131313] rounded-md p-8">
                         <div className="items-center">
-                            <h1 className="text-2xl font-bold text-center text-white">
-                                Playlist Merger
-                            </h1>
+                            <h2 className="text-2xl font-bold text-center text-white">
+                                Mega Wrapped
+                            </h2>
                             {isMerged ? (
                                 <p className="text-center text-green-100 font-semibold">
-                                    Your playlists has been merged!
+                                    Your mega wrapped has been created!
                                 </p>
                             ) : (
                                 <p className="text-center text-gray-400 font-semibold">
-                                    Lets make a name for your new playlist
+                                    Let&apos;s create it!
                                 </p>
                             )}
                         </div>
@@ -93,7 +138,7 @@ const Merge: React.FC<{
                                     <input
                                         type="text"
                                         className="mt-4 w-full bg-[#0C0C0C] text-white font-semibold rounded-md p-2 text-sm focus:outline-none"
-                                        placeholder="New playlist name"
+                                        placeholder={playlistName}
                                         value={playlistName}
                                         onChange={handlePlaylistNameChange}
                                     />
@@ -131,8 +176,8 @@ const Merge: React.FC<{
                                     }
                                     onClick={mergeConfirm}
                                     className={`
-                                    hover:bg-green-100 hover:text-[#0C0C0C]
-                                    transition mt-4 w-full bg-[#0C0C0C] text-green-100 font-semibold rounded-md p-2 text-sm ${
+                                    hover:bg-[#87dd84] hover:text-[#0C0C0C]
+                                    transition mt-4 w-full bg-[#4fc74b] text-white font-semibold rounded-md p-2 text-sm ${
                                         playlistName.length < 1 ||
                                         isMerging ||
                                         playlistName.length > 32
@@ -141,7 +186,7 @@ const Merge: React.FC<{
                                     }`}
                                 >
                                     {isMerging
-                                        ? 'Merging...'
+                                        ? mergingText
                                         : `Merge ${selectedPlaylists.length} playlists`}
                                 </button>
                                 <button
@@ -155,12 +200,12 @@ const Merge: React.FC<{
                         ) : (
                             <>
                                 <button
-                                    className="mt-4 w-full bg-[#0C0C0C] text-white font-semibold rounded-md p-2 text-sm
+                                    className="mt-4 w-full bg-[#4fc74b] text-white font-semibold rounded-md p-2 text-sm
                                     hover:bg-white hover:text-[#0C0C0C] transition"
                                     onClick={onCancel}
                                 >
                                     <Link
-                                        href={`https://open.spotify.com/playlist/${playlistId}`}
+                                        href={playListUrl}
                                         target="_blank"
                                         rel="noopener noreferrer"
                                     >
