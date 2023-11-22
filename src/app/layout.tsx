@@ -21,7 +21,7 @@ const RootLayout: React.FC<Props> = ({ children, session }) => {
         <html lang="en">
             <Head>
                 <title>Spotify Mega Wrapped</title>
-                <meta charset="UTF-8" />
+                <meta charSet="UTF-8" />
                 <meta
                     name="viewport"
                     content="width=device-width, initial-scale=1"
