@@ -77,7 +77,7 @@ export default function Home() {
     }
 
     return (
-        <main className="min-h-screen p-12">
+        <main className="min-h-full p-14">
             {session ? (
                 <>
                     {session.user && (
@@ -106,9 +106,18 @@ export default function Home() {
                     {/* Conditional rendering */}
                 </>
             ) : (
-                <div className="flex min-h-screen flex-col items-center justify-center">
-                    <div className="text-sm">
-                        You must be logged in to view this page.
+                <div className="h-fit my-32 flex flex-col">
+                    <div className="text-sm text-center">
+                        You must be{' '}
+                        <a
+                            href={window.location.origin}
+                            className='underline'
+                        >
+                            logged in
+                        </a>{' '}
+                        to view this page
+                        <br />
+                        (You might need to wait a little bit after logging in)
                     </div>
                 </div>
             )}
