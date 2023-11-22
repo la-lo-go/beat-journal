@@ -22,9 +22,9 @@ export function PlaylistManager({
 
     return (
         <div className="mt-6 w-full">
-            <div>
-                <p className="text-2xl font-bold text-white">
-                    Select playlists to merge
+            <div className="text-white text-center" >
+                <p className="text-xl font-semibold">
+                    Select playlists to create a Mega Wrapped 
                 </p>
             </div>
             {/* <input
@@ -33,29 +33,32 @@ export function PlaylistManager({
                 value={searchQuery}
                 onChange={onSearchChange}
             /> */}
+            
+            <div>
+                <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {filteredPlaylists.map((playlist) => (
+                        <PlaylistCard
+                            key={playlist.id}
+                            playlist={playlist}
+                            onPlaylistClick={onPlaylistClick}
+                            selectedPlaylists={selectedPlaylists}
+                        />
+                    ))}
+                </div>
+            </div>
             <button
                 disabled={selectedPlaylists.length < 2}
                 className={`
                 hover:bg-[#87dd84] hover:text-[#0C0C0C]
-                transition mt-8 w-full bg-[#4fc74b] text-green-100 font-extrabold rounded-md p-6 text-xl ${
-                    selectedPlaylists.length < 2 ? 'opacity-50 cursor-not-allowed hover:bg-[#4fc74b]' : ''
+                transition mt-8 w-full bg-[#4fc74b] text-white font-extrabold rounded-md p-6 text-xl ${
+                    selectedPlaylists.length < 2
+                        ? 'opacity-50 cursor-not-allowed hover:bg-[#4fc74b]'
+                        : ''
                 }`}
                 onClick={onMerge}
             >
                 Merge {selectedPlaylists.length} playlists
             </button>
-            <div>
-                <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {filteredPlaylists.map((playlist) => (
-                        <PlaylistCard 
-                            key={playlist.id} 
-                            playlist={playlist} 
-                            onPlaylistClick={onPlaylistClick} 
-                            selectedPlaylists={selectedPlaylists} 
-                        />
-                    ))}
-                </div>
-            </div>
         </div>
     )
 }
