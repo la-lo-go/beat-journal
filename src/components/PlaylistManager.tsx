@@ -24,7 +24,7 @@ export function PlaylistManager({
         <div className="mt-6 w-full">
             <div className="text-white text-center" >
                 <p className="text-xl font-semibold">
-                    Select playlists to create a Mega Wrapped 
+                    Select the playlists you want 
                 </p>
             </div>
             {/* <input
