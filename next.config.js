@@ -10,10 +10,10 @@ module.exports = {
             },
             {
                 protocol: 'https',
-                hostname: 'wrapped-images.spotifycdn.com',
+                hostname: '**.spotifycdn.com',
                 port: '',
                 pathname: '/**',
-            },
+            }
         ],
     },
 }
