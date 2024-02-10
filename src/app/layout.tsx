@@ -20,7 +20,7 @@ const RootLayout: React.FC<Props> = ({ children, session }) => {
     return (
         <html lang="en">
             <Head>
-                <title>Spotify Mega Wrapped</title>
+                <title>Mega Wrapped</title>
                 <meta charSet="UTF-8" />
                 <meta
                     name="viewport"
