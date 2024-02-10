@@ -76,7 +76,7 @@ const Merge: React.FC<{
         try {
             const newPlaylist = await spotifyApi.createPlaylist(session.id, {
                 name: playlistName,
-                description: 'merged playlist created by mergify.site',
+                description: 'Merged playlist created by mega-wrapped.vercel.app',
                 public: isPublic,
             })
 
