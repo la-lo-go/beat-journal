@@ -12,10 +12,10 @@ export default function Home() {
         <main className="flex min-h-screen -mb-24 flex-col items-center justify-center p-12">
             <div className="flex flex-col items-center justify-center">
                 <h1 className="text-3xl font-bold text-center text-white">
-                    Spotify Mega Wrapped
+                    Mega Wrapped
                 </h1>
                 <p className="text-lg text-center text-white my-4">
-                    Merge your spotify&apos;s wraps into one{' '}
+                    Merge your wraps into one{' '}
                     <span className="text-gradient font-bold bg-gradient-to-tr bg-clip-text from-green-600 to-teal-800 text-transparent animate-text">
                         Mega Wrapped
                     </span>
