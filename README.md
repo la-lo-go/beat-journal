@@ -1,26 +1,27 @@
-# mergify.site
 
-[![CodeFactor](https://www.codefactor.io/repository/github/dromzeh/mergify.site/badge)](https://www.codefactor.io/repository/github/dromzeh/mergify.site)
+<div align="center">
 
-a site which merges multiple spotify playlists into one, using next.js, typescript, tailwindcss, and next-auth
+# Mega Wrapped
 
-## but doesn't this exist in spotify already?
+Easily merge all your Spotify's wrapped in one playlist!
 
-yes, but this was solely made for the purpose of learning & because it's annoying to do it manually
+![Mega Wrapped demo](./docs/demo-gif.gif)
 
-## how to use
+</div>
 
-1. clone the repo
-2. create a `.local.env` file with the following contents:
+## How to use
 
-```
-SPOTIFY_CLIENT_ID
-SPOTIFY_CLIENT_SECRET
-NEXTAUTH_SECRET
-```
+1. Clone the repo
+2. Create a `.local.env` file with the following contents:
 
-3. `pnpm install & pnpm run dev`
+    ```env
+    SPOTIFY_CLIENT_ID = "your-spotify-client-id"
+    SPOTIFY_CLIENT_SECRET = "your-spotify-client-secret"
+    NEXTAUTH_SECRET = "your-nextauth-secret"
+    ```
 
-## deployment
+3. `npm install & npm run dev`
 
-deploy on vercel - hosting on something like next-on-pages might work but it's not tested. if you are using vercel, make sure to set the environment variables in the vercel dashboard & read https://next-auth.js.org/warnings#nextauth_url if you aren't
+## Deployment in Vercel
+
+Make sure to set the environment variables in the vercel dashboard & read <https://next-auth.js.org/warnings#nextauth_url> if you aren't
