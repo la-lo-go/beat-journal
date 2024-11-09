@@ -20,7 +20,7 @@ const RootLayout: React.FC<Props> = ({ children, session }) => {
     return (
         <html lang="en">
             <Head>
-                <title>Mega Wrapped</title>
+                <title>Beat Journal</title>
                 <meta charSet="UTF-8" />
                 <meta
                     name="viewport"
@@ -28,7 +28,7 @@ const RootLayout: React.FC<Props> = ({ children, session }) => {
                 />
                 <meta
                     name="description"
-                    content="Create a mega wrapped with the most important songs of your life"
+                    content="Create a beat journal with the most important songs of your life"
                 />
             </Head>
             <body className={nunito.className}>

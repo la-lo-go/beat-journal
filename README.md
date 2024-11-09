@@ -1,7 +1,7 @@
 
 <div align="center">
 
-# Mega Wrapped
+# Beat Journal
 
 Easily merge all your Spotify's wrapped in one playlist!
 

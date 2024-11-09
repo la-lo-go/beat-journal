@@ -29,7 +29,7 @@ const Merge: React.FC<{
             return match ? parseInt(match[0]) : 0
         }).filter((year) => year !== 0)
         
-        return `Mega Wrapped (${Math.min(...years)}-${Math.max(...years)})`
+        return `Beat Journal (${Math.min(...years)}-${Math.max(...years)})`
     })
 
     useEffect(() => {
@@ -76,7 +76,7 @@ const Merge: React.FC<{
         try {
             const newPlaylist = await spotifyApi.createPlaylist(session.id, {
                 name: playlistName,
-                description: 'Merged playlist created by mega-wrapped.vercel.app',
+                description: 'Merged playlist created by beatjournal.lalogo.dev',
                 public: isPublic,
             })
 
@@ -120,11 +120,11 @@ const Merge: React.FC<{
                     <div className="flex flex-col items-center justify-center gap-1 bg-[#131313] rounded-md p-8">
                         <div className="items-center">
                             <h2 className="text-2xl font-bold text-center text-white">
-                                Mega Wrapped
+                                Beat Journal
                             </h2>
                             {isMerged ? (
                                 <p className="text-center text-green-100 font-semibold">
-                                    Your mega wrapped has been created!
+                                    Your Beat Journal has been created!
                                 </p>
                             ) : (
                                 <p className="text-center text-gray-400 font-semibold">
