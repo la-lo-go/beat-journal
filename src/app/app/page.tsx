@@ -48,18 +48,28 @@ export default function Home() {
     useEffect(() => {
         const fetchPlaylists = async () => {
             if (status === 'authenticated') {
-                const response = await fetch(
-                    'https://api.spotify.com/v1/me/playlists?limit=50&offset=0',
-                    {
-                        headers: {
-                            Authorization: `Bearer ${
-                                session?.access_token ?? ''
-                            }`,
-                        },
-                    }
-                )
-                const { items } = await response.json()
-                setPlaylists(items)
+                let allPlaylists: Playlist[] = [];
+                let offset = 0;
+                const limit = 50;
+                
+                while (true) {
+                    const response = await fetch(
+                        `https://api.spotify.com/v1/me/playlists?limit=${limit}&offset=${offset}`,
+                        {
+                            headers: {
+                                Authorization: `Bearer ${session?.access_token ?? ''}`,
+                            },
+                        }
+                    );
+                    const data = await response.json();
+                    allPlaylists = [...allPlaylists, ...data.items];
+                    
+                    if (data.items.length < limit) break;
+                    
+                    offset += limit;
+                }
+                
+                setPlaylists(allPlaylists);
             }
         }
 
@@ -110,7 +120,7 @@ export default function Home() {
                     <div className="text-sm text-center">
                         You must be{' '}
                         <a
-                            href="https://spotify-mega-wrapped.vercel.app"
+                            href="https://beatjournal.lalogo.dev"
                             className='underline'
                         >
                             logged in
